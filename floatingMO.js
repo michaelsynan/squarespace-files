@@ -1,17 +1,13 @@
-console.log("This is a custom plugin");
+console.log("This is a particles plugin");
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Select the node that will be observed for mutations
-    let targetNode = document.body; // watch all child elements of the body
+    let targetNode = document.body; 
 
-    // Options for the observer (which mutations to observe)
     let config = { childList: true, subtree: true };
-
-    // Callback function to execute when mutations are observed
+    
     let callback = function(mutationsList, observer) {
         for(let mutation of mutationsList) {
             if (mutation.type === 'childList') {
-                // Check if our target node has been added to the DOM
                 let targetDiv = document.getElementById('particles-js');
                 if(targetDiv) {
                     console.log("Particles.js status:", typeof window.particlesJS);
@@ -70,8 +66,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                 }
                             }
                         });
-
-                        // Once we've found our node, we can stop observing
                         observer.disconnect();
                     }
                 }
@@ -79,9 +73,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    // Create an observer instance linked to the callback function
     let observer = new MutationObserver(callback);
-
-    // Start observing the target node for configured mutations
     observer.observe(targetNode, config);
 });
